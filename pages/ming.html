@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>明帝王图</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <style>
+  * {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    box-sizing: border-box;
+  }
+
+  [v-cloak] {
+    display: none;
+  }
+
+  body {
+    background: #faf8c9;
+  }
+
+  .ok {
+    position: absolute;
+    color: #fff;
+    font-size: 3.833333333333rem;
+  }
+
+  .playico {
+    width: 7.166666666667rem;
+    height: 7.166666666667rem;
+    position: absolute;
+    background: url("img/ming/start.png");
+    background-size: cover;
+    cursor: pointer;
+    animation: zd .5s infinite;
+  }
+
+  @keyframes zd {
+    50% {
+      transform: scale(1.2);
+    }
+
+  }
+
+  #app {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .win {
+    width: 100rem;
+    height: 57.75rem;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+  }
+
+  .wn {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .kj {
+    background: url("img/ming/start_box.png");
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .gamebg {
+    background: url("img/ming/gamebg_1.jpg");
+    background-size: cover;
+    width: 93.833333333333rem;
+    height: 51.75rem;
+    left: 3.833333333333rem;
+    top: 4.166666666667rem;
+    position: absolute;
+  }
+
+  .title {
+    color: #fff;
+    width: 35rem;
+    height: 3.333333333333rem;
+    line-height: 3.333333333333rem;
+    position: absolute;
+    left: 50%;
+    top: 1.25rem;
+    margin-left: -17.5rem;
+    font-size: 2.5rem;
+    text-align: center;
+    font-weight: bold;
+    text-shadow: 1px 1px 0px #000000;
+  }
+
+  .sortbox {
+
+
+  }
+
+  .sortboxn {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .quan {
+    width: 9rem;
+    height: 9rem;
+    cursor: move;
+    position: absolute;
+    user-select: none;
+  }
+  .quan img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .quan.fg {
+    filter: grayscale(3);
+  }
+
+  .quanxx {
+    border: 1px dashed rgb(253, 218, 69);
+    background: rgba(253, 218, 69, .1);
+    border-radius: 100%;
+  }
+
+  .quan .back {
+    font-size: 1.333333333333rem;
+    line-height: 1.833333333333rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    line-height:9rem;
+    background: url(img/ming/quanbg.png) no-repeat center center;
+    background-size: cover;
+    transition: 0.5s ease-in-out;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+  }
+
+  .quan .front {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.5s ease-in-out;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    -webkit-user-drag: none;
+  }
+
+  .quan:hover .front {
+    transform: rotateY(180deg);
+  }
+
+  .quan:hover .back {
+    transform: rotateY(0deg);
+  }
+
+  </style>
+</head>
+<body>
+<div id="app">
+   <audio ref="audio" src="img/ming/click.wav"></audio>
+  <audio src="img/ming/2.mp3" ref="bg" loop></audio>
+  <div class="win">
+    <div class="wn">
+      <div class="gamebg">
+      </div>
+      <div class="kj"></div>
+      <div class="title">明帝王图</div>
+      <div v-if="step===1" v-cloak class="playico" @click="next"></div>
+      <div v-else-if="step===2" v-cloak class="sortbox"
+           :style="{transform: 'translateX('+(54/12)+'rem)',width:per * ((108 + gap)/12)+'rem',height:(Math.ceil(list.length/per) * ((108 + gap)/12)+((108 + gap)/12) + gap/12 * lastNum)+'rem'}">
+        <div class="sortboxn">
+          <div class="quan" :class="{quanxx:item.kong}" v-for="item in list"
+               :style="{left:(item.left/12)+'rem',top:(item.top/12)+'rem',zIndex:item.zIndex}">
+            <img :src="'img/ming/'+item.img" class="front" v-if="!item.kong">
+            <div class="back" v-if="!item.kong">{{item.title}}</div>
+          </div>
+          <div @mouseenter="clickVoice" @mousedown="mousedown(item)" @mousemove="mousemove(item)" @mouseup="mouseup(item)"
+               @mouseleave="mouseleave(item)" @touchstart="touchstart(item)" @touchmove="touchmove(item)" @touchend="touchend(item)" class="quan fg"
+               v-for="(item,xh) in dragList"
+               :style="{left:(item.left/12)+'rem',top:(item.top/12)+'rem',zIndex:item.zIndex}">
+            <img :src="'img/ming/'+item.img" class="front">
+            <div class="back">{{item.title}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="ok" v-cloak v-else>厉害了！！</div>
+    </div>
+  </div>
+</div>
+<script src="js/gsap.min.js" type="text/javascript"></script>
+<script src="js/vue.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+new Vue({
+    el: '#app',
+    data: {
+        down: false,
+        oldx: 0,
+        oldy: 0,
+        savex: 0,
+        savey: 0,
+        dragListInit: [],//保存可以移动的初始信息
+        list: [
+            {
+                id: 3,
+                img: 'pic/game-4_07.png',
+                title: '名宣宗朱瞻基'
+            },
+            {
+                id: 1,
+                img: 'pic/game-4_03.png',
+                title: '明成祖朱棣'
+            },
+            {
+                id: -1,
+                img: 'pic/game-4_01.png',
+                title: '明太祖朱元璋'
+            },
+            {
+                id: 0,
+                img: 'pic/game-4_02.png',
+                title: '明惠宗朱允炆'
+            },
+
+            {
+                id: 2,
+                img: 'pic/game-4_05.png',
+                title: '明仁宗朱高炽'
+            },
+
+            {
+                id: 4,
+                img: 'pic/game-4_09.png',
+                title: '明英宗朱祁镇'
+            },
+            {
+                id: 5,
+                img: 'pic/game-4_11.png',
+                title: '明代宗朱祁钰'
+            },
+            {
+                id: 6,
+                img: 'pic/game-4_13.png',
+                title: '明宪宗朱见深'
+            },
+            {
+                id: 7,
+                img: 'pic/game-4_15.png',
+                title: '明孝宗朱祐樘'
+            },
+            {
+                id: 8,
+                img: 'pic/game-4_24.png',
+                title: '明武宗朱厚照'
+            },
+            {
+                id: 9,
+                img: 'pic/game-4_25.png',
+                title: '明世宗朱厚熜'
+            },
+            {
+                id: 10,
+                img: 'pic/game-4_26.png',
+                title: '明穆宗朱载垕'
+            },
+            {
+                id: 11,
+                img: 'pic/game-4_27.png',
+                title: '明神宗朱翊钧'
+            },
+            {
+                id: 12,
+                img: 'pic/game-4_28.png',
+                title: '明光宗朱常洛'
+            },
+            {
+                id: 13,
+                img: 'pic/game-4_29.png',
+                title: '明熹宗朱由校'
+            },
+            {
+                id: 14,
+                img: 'pic/game-4_30.png',
+                title: '明思宗朱由检'
+            },
+
+        ],
+        dragList: [],
+        per: 8,//每行多少个quan
+        gap: 6,
+        kong: 4,
+        lastNum: 6,//这个是最后一行可以拖动那个的间隔离前面的间隔个数
+        step: 1,//第几个步骤 1 播放 2 游戏开始3 成功后
+    },
+    mounted() {
+        this.list.sort((a, b) => {
+            return a.id - b.id
+        })
+        this.list.forEach((el, xh) => {
+            this.$set(el, 'left', (xh % this.per) * (108 + this.gap))
+            this.$set(el, 'top', Math.floor(xh / this.per) * (108 + this.gap))
+            this.$set(el, 'zIndex', 1)
+            this.$set(el, 'kong', false)
+        })
+        let array = []
+        let temList = []
+        let i = 1
+        while (i < this.kong + 1) {
+            let ran = Math.floor(Math.random() * this.list.length)
+            if (array.indexOf(ran) < 0) {
+                this.$set(this.list[ran], 'kong', true)
+                array.push(ran)
+                temList.push(this.list[ran])
+                i++
+            }
+        }
+        this.dragList = JSON.parse(JSON.stringify(temList));
+        let nums = this.list.length
+        this.dragList.forEach((el, xh) => {
+            this.$set(el, 'left', (xh % this.per) * (108 + this.gap) + (this.per - this.dragList.length) * (108 + this.gap) * 0.5)
+            this.$set(el, 'top', Math.ceil(nums / this.per) * (108 + this.gap) + this.gap * this.lastNum)
+        })
+        this.dragListInit = JSON.parse(JSON.stringify(this.dragList));
+        //
+        let _this=this
+        let sw=window.innerWidth
+        chuli(sw)
+        window.addEventListener('resize',()=>{
+            sw=window.innerWidth
+            chuli(sw)
+        })
+        function chuli(sw) {
+            if(sw>1200){
+                sw=1200
+            }
+             let ls=sw/100
+            _this.bili=ls/12
+
+            document.documentElement.style.cssText='font-size:'+ls+'px'
+
+        }
+    },
+    watch: {
+        list: {
+            immediate: false,
+            deep: true,
+            handler(value) {
+                let fi = value.every((el) => {
+                    return !el.kong
+                })
+                if (fi) {
+                    this.step = 3
+                }
+
+            }
+        },
+    },
+    methods: {
+        clickVoice(){
+            //this.$refs.audio.src='img/ming/click.wav'
+            this.$refs.audio.play()
+        },
+        bgVoice(){
+            this.$refs.bg.play()
+        },
+        next(){
+            this.step=2
+            this.clickVoice()
+            this.bgVoice()
+
+        },
+         touchstart(item) {
+            this.down = true
+            this.oldx = event.targetTouches[0].pageX
+            this.oldy = event.targetTouches[0].pageY
+            this.savex = item.left
+            this.savey = item.top
+            this.$set(item, 'zIndex', 1000)
+        },
+        touchmove(item) {
+            if (this.down) {
+                let left = this.savex + (event.targetTouches[0].pageX - this.oldx)/this.bili
+                let top = this.savey + (event.targetTouches[0].pageY - this.oldy)/this.bili
+                this.$set(item, 'left', left)
+                this.$set(item, 'top', top)
+
+            }
+        },
+        touchend(item) {
+            this.mouseup(item, 'no')
+        },
+        mousedown(item) {
+            this.down = true
+            this.oldx = event.pageX
+            this.oldy = event.pageY
+            this.savex = item.left
+            this.savey = item.top
+            //Zindex
+            this.$set(item, 'zIndex', 1000)
+        },
+        mousemove(item) {
+            if (this.down) {
+                let left = this.savex + (event.pageX - this.oldx)/this.bili
+                let top = this.savey + (event.pageY - this.oldy)/this.bili
+                this.$set(item, 'left', left)
+                this.$set(item, 'top', top)
+            }
+        },
+        mouseleave(item) {
+            this.mouseup(item, 'no')
+
+        },
+        mouseup(item, flag) {
+            this.down = false
+            //这个获取当前多动的初始位置，是为了等下归位
+            let fi = this.dragListInit.filter((el) => {
+                return el.id === item.id
+            })
+            //较对位置
+            let fix = this.list.filter((el) => {
+                return Math.abs(el.left - item.left) < 10 && Math.abs(el.top - item.top) < 10
+            })
+            if (fix[0]) {
+                this.clickVoice()
+                if (fix[0].id === item.id) {
+                    gsap.to(item, .2, {
+                        left: fix[0].left,
+                        top: fix[0].top,
+                        onComplete: () => {
+                            this.$set(item, 'zIndex', 0)
+                            this.$set(fix[0], 'kong', false)
+                            if (!flag) {
+                                let xh = this.dragList.indexOf(item)
+                                //this.dragList.splice(xh, 1)
+                                setTimeout(() => {
+                                    this.dragList.splice(xh, 1)
+                                }, 500)
+                            }
+                        }
+                    });
+
+                } else {
+                    gsap.to(item, .2, {
+                        left: fi[0].left,
+                        top: fi[0].top,
+                        onComplete: () => {
+                            this.$set(item, 'zIndex', 0)
+                        }
+                    });
+                }
+
+            } else {
+                gsap.to(item, .2, {
+                    left: fi[0].left,
+                    top: fi[0].top,
+                    onComplete: () => {
+                        this.$set(item, 'zIndex', 0)
+                    }
+                });
+            }
+        },
+    }
+})
+</script>
+
+</body>
+
+</html>
