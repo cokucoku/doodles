@@ -1,0 +1,77 @@
+<!doctype html>
+<head><title>Happy Halloween!</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+</head>
+<body>
+<center>
+  <style>#hplogo {
+    display: inline-block;
+    height: 220px;
+    margin-left: 30px;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    width: 491px;
+    -moz-user-select: -moz-none;
+    -ms-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none
+  }
+
+  #hplogoc {
+    background-image: url(img/halloween-2013/opening_static2.jpeg);
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    top: 0
+  }
+
+  #hplogos, #hplogoa {
+    border: none;
+    cursor: pointer;
+    height: 30px;
+    left: 462px;
+    outline: none;
+    position: absolute;
+    top: 190px;
+    width: 29px
+  }
+
+  #hplogoa {
+    top: 155px;
+    background: url('img/halloween-2013/sprite-initial.png') -461px -32px
+  }
+
+  #hplogos {
+    background: url('img/halloween-2013/sprite-initial.png') -561px -32px
+  }
+
+  #hplogoa.on {
+    background-position: -561px 0
+  }
+
+  #hplogoa.off {
+    background-position: -461px 0
+  }</style>
+  <div id="hplogo" dir="ltr" tabindex="0">
+    <canvas id="hplogoc" width="461" height="220"></canvas>
+    <button id="hplogoa" title="{{LOGO_ALT_TEXT_HTML}}"></button>
+    <button id="hplogos" title="{{LOGO_ALT_TEXT_HTML}}"></button>
+  </div>
+  <script nonce="1_WSagT4M2Lnx3Apti45kA">(function () {
+      window.google || (window.google = {});
+      google.doodle || (google.doodle = {});
+      google.doodle.url = "/search?q=Halloween%20Witch";
+      if (!google.doodle || !google.doodle.loaded) {
+          var a = ["google", "doodle", "loaded"], b = this;
+          a[0] in b || !b.execScript || b.execScript("var " + a[0]);
+          for (var c; a.length && (c = a.shift());) a.length ? b = b[c] ? b[c] : b[c] = {} : b[c] = !0;
+          var d = document.createElement("script");
+          d.src = "img/halloween-2013/halloween13-2.js";
+          d.async = !0;
+          document.body.appendChild(d)
+      }
+      ;
+  })();</script>
+</center>
+</body>
