@@ -113,13 +113,13 @@
   #app .tab {
     border-bottom: solid 1px var(--gray1);
     border-top: solid 1px var(--gray1);
+    background: var(--gray3);
   }
 
   #app .tab ul {
     display: flex;
     max-width: 1296px;
     margin: 0 auto;
-    background:var(--gray3);
   }
 
   #app .tab ul li {
