@@ -1,0 +1,8 @@
+{"useSoftmaxLoss": "true", "batchNormVarianceEpsilon": 1.0e-07, "numInstruments": 4,
+ "numFilters": 128, "numLayers": 33, "numRegularConvLayers": 0, "numSteps": 96,
+ "dilation": [[1, 1], [2, 2], [4, 4], [8, 8], [16, 16], [16, 32],
+              [1, 1], [2, 2], [4, 4], [8, 8], [16, 16], [16, 32],
+              [1, 1], [2, 2], [4, 4], [8, 8], [16, 16], [16, 32],
+              [1, 1], [2, 2], [4, 4], [8, 8], [16, 16], [16, 32],
+              [1, 1], [2, 2], [4, 4], [8, 8], [16, 16], [16, 32]],
+ "interleaveSplitEveryNLayers": 16, "numPointwiseSplits": 4}

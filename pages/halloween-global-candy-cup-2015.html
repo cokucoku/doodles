@@ -1931,9 +1931,6 @@ if (window.self !== window.top) {
   -ms-user-select: none;
   -webkit-tap-highlight-color: transparent;
   -webkit-user-select: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 #fpdoodle #hplogo {
@@ -1950,11 +1947,6 @@ if (window.self !== window.top) {
 
 #fpdoodle #hplogo canvas {
   background: none
-}
-body{
-  padding: 0;
-  margin: 0px;
-  box-sizing: border-box;
 }
 #fpdoodle, #sadoodle {
   background: #000
@@ -2023,46 +2015,6 @@ body{
         if (a && e && (h = m(a, h, c) || [], e.length == h.length)) for (c = 0; a = e[c]; c++) d.msgs[a] = h[c]
     })();
 })();
-</script>
-<script>
-setTimeout(() => {
-    let hplogo = document.querySelector('#hplogo')
-    hplogo.style.cssText='width:100vw;height:100vh;'
-    let canvas=hplogo.querySelector('canvas')
-    let vw = 1920
-    let vh = 1080
-    let bili = vh / vw
-    let sw = window.innerWidth
-    let sh = window.innerHeight
-    chuli(sw, sh)
-    window.addEventListener('resize', () => {
-        sw = window.innerWidth
-        sh = window.innerHeight
-        chuli(sw, sh)
-    })
-
-    function chuli(sw, sh) {
-        if (sw > vw) {
-            if (sh > vh) {
-                canvas.style.cssText = 'width:' + sw + 'px;height:' + sh + 'px'
-            } else {
-                canvas.style.cssText = 'width:' + sh / bili + 'px;height:' + sh + 'px'
-            }
-        } else {
-            if (sh > vh) {
-                canvas.style.cssText = 'width:' + sw + 'px;height:' + sw * bili + 'px'
-            } else {
-                let bilis = sh / sw
-                if (bili > bilis) {
-                    canvas.style.cssText = 'width:' + sh / bili + 'px;height:' + sh + 'px'
-                } else {
-                    canvas.style.cssText = 'width:' + sw + 'px;height:' + sw * bili + 'px'
-                }
-            }
-        }
-    }
-
-}, 100)
 </script>
 </body>
 </html>
