@@ -3,12 +3,13 @@
     padding: 0px;
     list-style: none;
     box-sizing: border-box;
-  }
-  a{
-    text-decoration: none;
-  }
+}
 
-  :root {
+a {
+    text-decoration: none;
+}
+
+:root {
     --black: #000;
     --white: #fff;
     --gray1: #333;
@@ -24,15 +25,15 @@
     --ge: #f2f1ec;
     --fk: #f4f4f5;
     --light: #e7a062;
-  }
+}
 
-  body {
+body {
     background: var(--ge);
 
-  }
+}
 
-  #app .title {
-    font-size: clamp(30px, 3vw, 60px);
+#app .title {
+    font-size: clamp(24px, 6vw, 60px);
     font-weight: bold;
     display: flex;
     justify-content: center;
@@ -41,15 +42,16 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     white-space: nowrap;
-  }
+}
 
-  #app .con ul {
+#app .con ul {
     display: flex;
     flex-wrap: wrap;
     width: calc(100% + 32px);
-  }
+    margin-bottom: 32px;
+}
 
-  #app .con ul li {
+#app .con ul li {
     width: calc(33.33% - 32px);
     background: var(--white);
     margin-right: 32px;
@@ -57,72 +59,104 @@
     overflow: hidden;
     border-radius: 15px;
     border: solid 1px var(--gray1);
-  }
-  @media (max-width: 1296px) {
+}
+
+@media (max-width: 1296px) {
     #app .con {
-      padding: 0 32px;
+        padding: 0 32px;
     }
-  }
-  @media (max-width: 991px) {
+}
+
+@media (max-width: 991px) {
     #app .con ul li {
         width: calc(50% - 32px);
     }
-  }
-  @media (max-width: 768px) {
+}
+
+@media (max-width: 768px) {
     #app .con ul li {
         width: calc(100% - 32px);
     }
-  }
+}
 
-  #app .con ul li .img {
+#app .con ul li .img {
     padding-top: 60%;
     position: relative;
-  }
-  #app .con ul li .img img {
+}
+#app .con ul li .img .badge{
+    position: absolute;
+    right: 0;
+    top: 0px;
+    color: #fff;
+    background: #f60;
+    font-size: 14px;
+    padding: 5px 15px;
+    border-radius: 0px 0 0px 15px;
+}
+#app .con ul li .img .badge.a{
+    background: #fad900;
+    color: #000;
+}
+#app .con ul li .img .badge.g{
+    background: #38a935;
+}
+#app .con ul li .img .badge.s{
+    background: #971a76;
+}
+#app .con ul li .img .badge.i{
+    background: #333;
+}
+#app .con ul li .img .badge.v{
+    background: #1f2579;
+}
+
+#app .con ul li .img img {
     left: 50%;
     max-height: 80%;
     max-width: 80%;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
- }
-  #app .con ul li .text{
-    padding: 28px 32px;border-top: 1px solid var(--gray1);
+}
+
+#app .con ul li .text {
+    padding: 28px 32px;
+    border-top: 1px solid var(--gray1);
     color: var(--black);
-  }
-  #app .con ul li .text .ti{
+}
+
+#app .con ul li .text .ti {
     font-size: 24px;
     padding-top: 16px;
     line-height: 120%;
-  }
-  #app .con ul li .text .time{
+}
+
+#app .con ul li .text .time {
     font-size: 12px;
     color: var(--gray4);
-  }
+}
 
 
-
-
-  #app .con {
+#app .con {
     max-width: 1296px;
     margin: 0 auto;
     padding-top: 32px;
     padding-bottom: 64px;
-  }
+}
 
-  #app .tab {
+#app .tab {
     border-bottom: solid 1px var(--gray1);
     border-top: solid 1px var(--gray1);
     background: var(--gray3);
-  }
+}
 
-  #app .tab ul {
+#app .tab ul {
     display: flex;
     max-width: 1296px;
     margin: 0 auto;
-  }
+}
 
-  #app .tab ul li {
+#app .tab ul li {
     flex-grow: 1;
     display: flex;
     justify-content: center;
@@ -131,9 +165,30 @@
     padding: clamp(14px, 2vw, 30px) 0;
     color: var(--white);
     border-left: solid 1px var(--gray1);
-  }
+}
 
-  #app .tab ul li.on {
-   background-image: -webkit-linear-gradient(top, #ef6900, #f3c516);
+#app .tab ul li.on {
+    background-image: -webkit-linear-gradient(top, #ef6900, #f3c516);
 
-  }
+}
+
+#app .more {
+    background-color: #fff;
+    border: 1px solid #000;
+    color: #000;
+    margin: 0 auto;
+    width: fit-content;
+    border-radius: clamp(14px, 6vw, 99px);
+    display: flex;
+    align-items: center;
+    font-size: clamp(14px, 2vw, 18px);
+    padding: clamp(10px,3vw, 22px) clamp(14px, 3vw, 32px);
+    cursor: pointer;
+    color: #000;
+    gap: clamp(6px, 1vw, 13px);
+}
+#app .more svg{
+    width: clamp(12px, 2vw, 20px);
+    height: clamp(12px, 2vw, 20px);
+    fill: currentColor;
+}
